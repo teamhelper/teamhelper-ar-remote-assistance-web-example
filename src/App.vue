@@ -233,7 +233,7 @@ export default {
         this.handleTHMKitOtherClientAccept
       )
       // THMKit token 即将过期事件监听回调
-       this.$THMKit.addEventListener(
+      this.$THMKit.addEventListener(
         'THMKit-token-will-expire',
         this.handleTHMKitRefreshToken
       )
@@ -291,7 +291,7 @@ export default {
       this.userInfo = null
     },
     // token 即将过期刷新Token
-     async handleTHMKitRefreshToken() {
+    async handleTHMKitRefreshToken() {
       const res = await Axios.post(`${this.hostUrl}/oauth/login/example`, {
         ...this.loginParams
       })
@@ -419,6 +419,10 @@ export default {
         this.$THMKit.removeEventListener(
           'THMKit-other-client-accept',
           this.handleTHMKitOtherClientAccept
+        )
+        this.$THMKit.removeEventListener(
+          'THMKit-token-will-expire',
+          this.handleTHMKitRefreshToken
         )
       }
     }
