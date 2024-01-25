@@ -232,6 +232,11 @@ export default {
         'THMKit-other-client-accept',
         this.handleTHMKitOtherClientAccept
       )
+      // THMKit token 即将过期事件监听回调
+       this.$THMKit.addEventListener(
+        'THMKit-token-will-expire',
+        this.handleTHMKitRefreshToken
+      )
     },
     handleWsOpen(data) {
       console.log('APP-WebSocket connection opened:', data)
@@ -284,6 +289,26 @@ export default {
         this.$THMKit.loginOut()
       }
       this.userInfo = null
+    },
+    // token 即将过期刷新Token
+     async handleTHMKitRefreshToken() {
+      const res = await Axios.post(`${this.hostUrl}/oauth/login/example`, {
+        ...this.loginParams
+      })
+      if (res.data.code != 200) {
+        this.$message.error(res.data.msg)
+        return false
+      }
+      this.applyInfo = res.data.data
+      const meetingRes = await this.$THMKit.refreshToken({
+        userId: this.applyInfo.userId,
+        timestamp: this.applyInfo.timestamp
+      })
+      if (meetingRes.code != 200) {
+        this.$message.error(meetingRes.msg)
+        return false
+      }
+      this.userInfo = meetingRes.data
     },
     // 同意会议
     handleAcceptCloseAnswerContainer: function () {
