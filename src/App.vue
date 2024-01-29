@@ -123,7 +123,7 @@ export default {
       hostUrl:
         process.env.NODE_ENV === 'development'
           ? '/api'
-          : 'http://124.222.65.49:8000/api', // nginx 代理 key,
+          : 'https://meeting-test.url.mo.cn/api', // nginx 代理 key,
       loginParams: {
         userId: null, // 用户ID
         appKey: 'FhBYUWQEK11tvoQTiFzEEUa31CI26cwY', // 开发者平台 应用appKey
