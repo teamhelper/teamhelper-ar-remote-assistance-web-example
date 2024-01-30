@@ -1,12 +1,7 @@
 <template>
   <div class="user-list">
     <template v-for="(item, index) in userListData">
-      <div
-        class="user-item"
-        :key="`user_${index}`"
-        @click="handleCall(item)"
-        v-if="userInfo.userId != item.userId"
-      >
+      <div class="user-item" :key="`user_${index}`" @click="handleCall(item)" v-if="userInfo.userId != item.userId">
         {{ item.nickname }}- userId: {{ item.userId }}
       </div>
     </template>
@@ -44,10 +39,11 @@ export default {
 <style lang="scss" scoped>
 .user-list {
   width: 100%;
-  height: 100%;
+  height: 400px;
   overflow: hidden;
   overflow-y: scroll;
   cursor: pointer;
+
   .user-item {
     width: calc(100% - 20px - 10px);
     height: 60px;
