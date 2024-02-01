@@ -1,7 +1,7 @@
 <template>
-  <div class="user-list">
+  <div class="custom-invite-list">
     <template v-for="(item, index) in userListData">
-      <div class="user-item" :key="`user_${index}`" @click="handleCall(item)" v-if="userInfo.userId != item.userId">
+      <div class="user-item" :key="`user_${index}`" @click="handleInvite(item)" v-if="userInfo.userId != item.userId">
         {{ item.nickname }}- userId: {{ item.userId }}
       </div>
     </template>
@@ -22,24 +22,30 @@ export default {
   },
   methods: {
     handleGetUserListData: async function () {
+      const curList = this.THMKitEvent.getMeetingRoomPsnList()
       const psnRes = await this.THMKitEvent.getUserList()
       if (psnRes.code != 200) {
         this.$message.error(psnRes.msg)
         return false
       }
-      this.userListData = psnRes.data
+      const allList = psnRes.data
+      if (allList && curList && allList.length > 0) {
+        this.userListData = allList.filter(itemA => !curList.some(itemB => itemB.userId == itemA.userId));
+      } else {
+        this.userListData = psnRes.data
+      }
     },
-    handleCall: function (row) {
-      this.$emit('handleCall', row)
-    }
+    handleInvite: function (row) {
+      this.$emit('handleInvite', row)
+    },
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.user-list {
+.custom-invite-list {
   width: 100%;
-  height: 400px;
+  max-height: 300px;
   overflow: hidden;
   overflow-y: scroll;
   cursor: pointer;

@@ -6,44 +6,22 @@
       </div>
       <!-- 登录THMKit 入参 -->
       <div class="login-container">
-        <el-form
-          ref="form"
-          :model="loginParams"
-          label-position="top"
-          size="small"
-        >
+        <el-form ref="form" :model="loginParams" label-position="top" size="small">
           <el-form-item label="userId">
-            <el-input
-              v-model="loginParams.userId"
-              placeholder="用户id"
-            ></el-input>
+            <el-input v-model="loginParams.userId" placeholder="用户id"></el-input>
           </el-form-item>
           <el-form-item label="appKey">
-            <el-input
-              v-model="loginParams.appKey"
-              placeholder="开发者平台 应用 appKey"
-            ></el-input>
+            <el-input v-model="loginParams.appKey" placeholder="开发者平台 应用 appKey"></el-input>
           </el-form-item>
           <el-form-item label="accessKey">
-            <el-input
-              v-model="loginParams.accessKey"
-              placeholder="开发者平台 应用 accessKey"
-            ></el-input>
+            <el-input v-model="loginParams.accessKey" placeholder="开发者平台 应用 accessKey"></el-input>
           </el-form-item>
           <el-form-item label="accessSecret">
-            <el-input
-              v-model="loginParams.accessSecret"
-              placeholder="开发者平台 应用 accessSecret"
-            ></el-input>
+            <el-input v-model="loginParams.accessSecret" placeholder="开发者平台 应用 accessSecret"></el-input>
           </el-form-item>
           <el-form-item label="timestamp">
-            <el-date-picker
-              type="date"
-              placeholder="token失效时间"
-              v-model="loginParams.timestamp"
-              value-format="timestamp"
-              style="width: 100%"
-            ></el-date-picker>
+            <el-date-picker type="date" placeholder="token失效时间" v-model="loginParams.timestamp" value-format="timestamp"
+              style="width: 100%"></el-date-picker>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="handleUseLogin">登录</el-button>
@@ -58,54 +36,27 @@
       </div>
       <el-tabs v-model="activeName" @tab-click="handleChangeAccessMode">
         <el-tab-pane label="呼叫人员" name="user">
-          <user-list
-            ref="userListRef"
-            :userInfo="userInfo"
-            :THMKitEvent="$THMKit"
-            @handleCall="handleCalling"
-          ></user-list>
+          <user-list ref="userListRef" :userInfo="userInfo" :THMKitEvent="$THMKit"
+            @handleCall="handleCalling"></user-list>
         </el-tab-pane>
         <el-tab-pane label="加入会议" name="meeting">
-          <meeting-list
-            ref="meetingListRef"
-            :THMKitEvent="$THMKit"
-            @handleJoin="handleJoinMeeting"
-          ></meeting-list>
+          <meeting-list ref="meetingListRef" :THMKitEvent="$THMKit" @handleJoin="handleJoinMeeting"></meeting-list>
         </el-tab-pane>
       </el-tabs>
     </div>
     <div class="answer-container" v-if="answerProps.answerVisible">
-      <THMKitAnswer
-        :answerOptions="answerProps.answerOptions"
-        :THMKitEvent="$THMKit"
-        @handleCallAccept="handleAcceptCloseAnswerContainer"
-        @handleCallReject="handleRejectCloseAnswerContainer"
-      ></THMKitAnswer>
+      <THMKitAnswer :answerOptions="answerProps.answerOptions" :THMKitEvent="$THMKit"
+        @handleCallAccept="handleAcceptCloseAnswerContainer" @handleCallReject="handleRejectCloseAnswerContainer">
+      </THMKitAnswer>
     </div>
-    <THMKitAssist
-      v-if="assistProps.assistVisible"
-      :THMKitEvent="$THMKit"
-      :customInvite="assistProps.customInvite"
-      @handleOverMeeting="handleOverMeeting"
-      @handleCustomInvite="handleCustomInviteEvent"
-    ></THMKitAssist>
+    <THMKitAssist v-if="assistProps.assistVisible" :THMKitEvent="$THMKit" :customInvite="assistProps.customInvite"
+      @handleOverMeeting="handleOverMeeting" @handleCustomInvite="handleCustomInviteEvent"></THMKitAssist>
     <!-- 自定义会议中协作邀请列表 -->
-    <el-dialog
-      title="自定义会议中协作邀请列表"
-      class="selectMemberDialog"
-      :visible.sync="customInviteDialogVisible"
-      v-if="customInviteDialogVisible"
-      :modal-append-to-body="false"
-      :destroy-on-close="true"
-      :close-on-click-modal="false"
-      :before-close="handleSelectMemberClose"
-    >
-      <custom-invite-list
-        ref="customInviteListRef"
-        :userInfo="userInfo"
-        :THMKitEvent="$THMKit"
-        @handleInvite="handleInvite"
-      ></custom-invite-list>
+    <el-dialog title="自定义会议中协作邀请列表" class="selectMemberDialog" :visible.sync="customInviteDialogVisible"
+      v-if="customInviteDialogVisible" :modal-append-to-body="false" :destroy-on-close="true"
+      :close-on-click-modal="false" :before-close="handleSelectMemberClose">
+      <custom-invite-list ref="customInviteListRef" :userInfo="userInfo" :THMKitEvent="$THMKit"
+        @handleInvite="handleInvite"></custom-invite-list>
     </el-dialog>
   </div>
 </template>
@@ -322,20 +273,19 @@ export default {
     },
     // 同意进行协作
     handleInviterAccept: async function () {
-      // 对方同意后，调整用MST业务加入会议接口
-      const [resultMeeting, resultJoinMeeting] = await this.$THMKit.joinMeeting(
-        {
-          meetingNo: this.meetingInfo.meetingNo
-        }
-      )
-      if (resultJoinMeeting.code != 200) {
-        // 失败提示
-        this.$message.error(resultJoinMeeting.msg)
-        return false
+      try {
+        // 对方同意后，调整用MST业务加入会议接口
+        const [resultMeeting] = await this.$THMKit.joinMeeting(
+          {
+            meetingNo: this.meetingInfo.meetingNo
+          }
+        )
+        // 将当前的会议状态传入ThImAssist 组件
+        this.meetingInfo = resultMeeting.data
+        this.$set(this.assistProps, 'assistVisible', true) // 进入会议协作
+      } catch (error) {
+        this.$message.error(error.msg)
       }
-      // 将当前的会议状态传入ThImAssist 组件
-      this.meetingInfo = resultMeeting.data
-      this.$set(this.assistProps, 'assistVisible', true) // 进入会议协作
     },
     // 关闭接听等待页面
     handleCloseAnswerContainer: function () {
@@ -442,6 +392,7 @@ export default {
   justify-content: space-around;
   overflow: hidden;
   position: relative;
+
   .left {
     .left-title {
       span {
@@ -449,12 +400,15 @@ export default {
         font-weight: bold;
       }
     }
+
     width: 50%;
     padding: 10px;
   }
+
   .right {
     width: 50%;
     padding: 10px;
+
     .right-title {
       span {
         font-size: 20px;
@@ -463,9 +417,11 @@ export default {
     }
   }
 }
+
 .th-im-assist-container {
   z-index: 99;
 }
+
 .answer-container {
   display: flex;
   align-items: center;

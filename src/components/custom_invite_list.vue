@@ -44,7 +44,7 @@ export default {
 <style lang="scss" scoped>
 .custom-invite-list {
   width: 100%;
-  max-height: 400px;
+  max-height: 300px;
   overflow: hidden;
   overflow-y: scroll;
   cursor: pointer;
