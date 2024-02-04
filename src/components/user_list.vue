@@ -2,7 +2,12 @@
   <div class="user-list">
     <template v-for="(item, index) in userListData">
       <div class="user-item" :key="`user_${index}`" @click="handleCall(item)" v-if="userInfo.userId != item.userId">
-        {{ item.nickname }}- userId: {{ item.userId }}
+        <div class="user-item-i">
+          <span>用户姓名 {{ item.nickname }}</span>
+        </div>
+        <div class="user-item-i">
+          <span><strong>userId: {{ item.userId }}</strong></span>
+        </div>
       </div>
     </template>
   </div>
@@ -47,12 +52,16 @@ export default {
   .user-item {
     width: calc(100% - 20px - 10px);
     height: 60px;
-    background: rgba($color: #4f4e4e, $alpha: 0.4);
+    background: rgba($color: #F5F7FA, $alpha: 1);
     display: flex;
-    align-items: center;
+    flex-direction: column;
+   justify-content: center;
     margin: 5px;
-    padding: 0 10px;
+    padding: 10px 10px;
     border-radius: 5px;
+    .user-item-i {
+      margin:5px 0;
+    }
   }
 }
 </style>

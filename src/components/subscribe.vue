@@ -18,11 +18,11 @@
       <el-form-item label="会议参与人">
         <el-select v-model="form.inviteeUserIds" size="small" filterable :multiple="true" placeholder="参与人">
           <el-option v-for="item in userListData" :key="item.userId" :value="item.userId"
-            :label="`${item.nickname} ${item.userId}`">
+            :label="`用户名称： ${item.nickname}   userId: ${item.userId}`">
             <template>
               <div class="inviteeItem">
-                <span>{{ item.nickname }}</span>
-                <span>{{ item.userId }}</span>
+                <span>用户名称：{{ item.nickname }}</span>
+                <span> userId: {{ item.userId }}</span>
               </div>
             </template>
           </el-option>
@@ -110,7 +110,7 @@ export default {
   .list-item {
     width: calc(100% - 20px - 10px);
     height: 60px;
-    background: rgba($color: #4f4e4e, $alpha: 0.4);
+    background: rgba($color: #F5F7FA, $alpha: 1);
     display: flex;
     align-items: center;
     margin: 5px;

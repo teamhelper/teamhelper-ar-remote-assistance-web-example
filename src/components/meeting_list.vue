@@ -1,13 +1,13 @@
 <template>
   <div class="meeting-list">
     <template v-for="(item, index) in meetingListData">
-      <div
-        class="meeting-item"
-        :key="`meeting_${index}`"
-        @click="handleJoin(item)"
-      >
-        <span>会议名称：{{ item.meetingName }}</span>
-        <span>会议号：{{ item.meetingNo }}</span>
+      <div class="meeting-item" :key="`meeting_${index}`" @click="handleJoin(item)">
+        <div class="meeting-item-i">
+          <span>会议名称：{{ item.meetingName }}</span>
+        </div>
+        <div class="meeting-item-i">
+          <span><strong>会议号：{{ item.meetingNo }}</strong></span>
+        </div>
       </div>
     </template>
   </div>
@@ -48,15 +48,20 @@ export default {
   overflow: hidden;
   overflow-y: scroll;
   cursor: pointer;
+
   .meeting-item {
     width: calc(100% - 20px - 10px);
     height: 60px;
-    background: rgba($color: #4f4e4e, $alpha: 0.4);
+    background: rgba($color: #F5F7FA, $alpha: 1);
     display: flex;
-    align-items: center;
+    flex-direction: column;
+   justify-content: center;
     margin: 5px;
-    padding: 0 10px;
+    padding: 10px 10px;
     border-radius: 5px;
+    .meeting-item-i {
+      margin:5px 0;
+    }
   }
 }
 </style>

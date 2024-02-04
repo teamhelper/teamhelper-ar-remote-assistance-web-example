@@ -36,14 +36,14 @@
     <div class="right">
       <div class="right-desc">
         <strong>您可以根据不同业务场景，进行体验</strong>
-        <br /><br /> <strong>1、预约会议场景：</strong>
+        <br /> <strong>1、预约会议场景：</strong>
         <br /> 点击“预约会议”: 输入您预约会议的信息
         <br /> 进入“会议列表”：点击“会议” 进行会议协作
-        <br /><br /><strong>2、立即会议场景：</strong>
+        <br /><strong>2、立即会议场景：</strong>
         <br /> 点击“立即会议”：输入您的会议名称，进行会议协作
-        <br /><br /><strong>3、加入会议场景：</strong>
+        <br /><strong>3、加入会议场景：</strong>
         <br /> 点击“加入会议”：输入您的会议号，进行会议协作
-        <br /><br /><strong>4、呼叫人员场景：</strong>
+        <br /><strong>4、呼叫人员场景：</strong>
         <br /> 点击“人员列表”：点击人员列表中的人员，进行会议协作
       </div>
       <template v-if="userInfo">
@@ -446,21 +446,14 @@ export default {
     padding: 10px;
   }
 
-  .mid {
-    flex-shrink: 0;
-    width: 30%;
-    padding: 50px 20px;
-
-    .mid-desc {
-      span {
-        font-size: 12px;
-      }
-    }
-  }
-
   .right {
     width: 40%;
     padding: 10px;
+
+    .right-desc {
+      font-size: 14px;
+      line-height: 28px;
+    }
 
     .right-top {
       .right-top-title {
