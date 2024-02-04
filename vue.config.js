@@ -9,7 +9,7 @@ module.exports = defineConfig({
     https: false,
     proxy: {
       '/api': {
-        target: 'http://124.222.65.49:8000',
+        target: 'https://meeting-test.url.mo.cn/api',
         ws: true,
         changeOrigin: true,
         pathRewrite: {

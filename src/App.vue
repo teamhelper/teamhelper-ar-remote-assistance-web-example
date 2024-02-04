@@ -4,6 +4,9 @@
       <div class="left-title">
         <span>登录THMKit</span>
       </div>
+      <div class="left-desc">
+        快速体验请使用不同浏览器，输入开发者平台中应用信息及用户UserId进行登录
+      </div>
       <!-- 登录THMKit 入参 -->
       <div class="login-container">
         <el-form ref="form" :model="loginParams" label-position="top" size="small">
@@ -30,19 +33,35 @@
         </el-form>
       </div>
     </div>
-    <div class="right" v-if="userInfo">
-      <div class="right-title">
-        <span>加入会议方式</span>
+    <div class="right">
+      <div class="right-desc">
+        <strong>您可以根据不同业务场景，进行体验</strong>
+        <br /><br /> <strong>1、预约会议场景：</strong>
+        <br /> 点击“预约会议”: 输入您预约会议的信息
+        <br /> 进入“会议列表”：点击“会议” 进行会议协作
+        <br /><br /><strong>2、立即会议场景：</strong>
+        <br /> 点击“立即会议”：输入您的会议名称，进行会议协作
+        <br /><br /><strong>3、加入会议场景：</strong>
+        <br /> 点击“加入会议”：输入您的会议号，进行会议协作
+        <br /><br /><strong>4、呼叫人员场景：</strong>
+        <br /> 点击“人员列表”：点击人员列表中的人员，进行会议协作
       </div>
-      <el-tabs v-model="activeName" @tab-click="handleChangeAccessMode">
-        <el-tab-pane label="呼叫人员" name="user">
-          <user-list ref="userListRef" :userInfo="userInfo" :THMKitEvent="$THMKit"
-            @handleCall="handleCalling"></user-list>
-        </el-tab-pane>
-        <el-tab-pane label="加入会议" name="meeting">
-          <meeting-list ref="meetingListRef" :THMKitEvent="$THMKit" @handleJoin="handleJoinMeeting"></meeting-list>
-        </el-tab-pane>
-      </el-tabs>
+      <template v-if="userInfo">
+        <el-tabs v-model="activeName" @tab-click="handleChangeAccessMode">
+          <el-tab-pane label="预约会议" name="subscribe">
+            <subscribe-vue ref="subscribeRef" :THMKitEvent="$THMKit"></subscribe-vue>
+          </el-tab-pane>
+          <el-tab-pane label="立即会议" name="promptly">
+            <promptly-vue ref="promptlyRef" :THMKitEvent="$THMKit" @handleJoinMeeting="handleJoinMeeting"></promptly-vue>
+          </el-tab-pane>
+          <el-tab-pane label="呼叫人员" name="user">
+            <user-list ref="userListRef" :userInfo="userInfo" :THMKitEvent="$THMKit"
+              @handleCall="handleCalling"></user-list>
+          </el-tab-pane>
+          <el-tab-pane label="会议列表" name="meeting">
+            <meeting-list ref="meetingListRef" :THMKitEvent="$THMKit" @handleJoin="handleJoinMeeting"></meeting-list>
+          </el-tab-pane>
+        </el-tabs></template>
     </div>
     <div class="answer-container" v-if="answerProps.answerVisible">
       <THMKitAnswer :answerOptions="answerProps.answerOptions" :THMKitEvent="$THMKit"
@@ -64,6 +83,8 @@
 <script>
 import { THMKitAssist, THMKitAnswer, THMKit } from 'thmkit'
 import Axios from 'axios'
+import subscribeVue from './components/subscribe.vue'
+import promptlyVue from './components/promptly.vue'
 import userList from './components/user_list.vue'
 import meetingList from './components/meeting_list.vue'
 import customInviteList from './components/custom_invite_list.vue'
@@ -84,7 +105,7 @@ export default {
         platform: 'PC' // 平台信息 PC/ANDROID/GLASS
       },
       // 切换加入模式
-      activeName: 'user',
+      activeName: 'subscribe',
       // 应用信息
       applyInfo: null,
       // MST用户信息
@@ -108,6 +129,8 @@ export default {
   components: {
     THMKitAssist,
     THMKitAnswer,
+    subscribeVue,
+    promptlyVue,
     userList,
     meetingList,
     customInviteList
@@ -375,6 +398,14 @@ export default {
           this.handleTHMKitRefreshToken
         )
       }
+    },
+    // 打开预约会议
+    handleOpenCreateMeeting: function () {
+
+    },
+    // 立即会议
+    handleOpenPromptlyMeeting: function () {
+
     }
   },
   beforeDestroy() {
@@ -394,6 +425,17 @@ export default {
   position: relative;
 
   .left {
+    flex-shrink: 0;
+    width: 30%;
+
+    .left-desc {
+      margin: 10px 0;
+
+      span {
+        font-size: 14px;
+      }
+    }
+
     .left-title {
       span {
         font-size: 20px;
@@ -401,13 +443,34 @@ export default {
       }
     }
 
-    width: 50%;
     padding: 10px;
   }
 
+  .mid {
+    flex-shrink: 0;
+    width: 30%;
+    padding: 50px 20px;
+
+    .mid-desc {
+      span {
+        font-size: 12px;
+      }
+    }
+  }
+
   .right {
-    width: 50%;
+    width: 40%;
     padding: 10px;
+
+    .right-top {
+      .right-top-title {
+        padding: 10px 0;
+      }
+
+      .right-top-m {
+        padding: 0 20px 10px;
+      }
+    }
 
     .right-title {
       span {

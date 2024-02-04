@@ -6,7 +6,8 @@
         :key="`meeting_${index}`"
         @click="handleJoin(item)"
       >
-        <span>会议名称：{{ item.meetingNo }}</span>
+        <span>会议名称：{{ item.meetingName }}</span>
+        <span>会议号：{{ item.meetingNo }}</span>
       </div>
     </template>
   </div>
