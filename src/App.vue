@@ -118,7 +118,7 @@ export default {
       // 会议协作组件相关变量
       assistProps: {
         assistVisible: false, // 是否显示会议协作组件
-        customInvite: true // 是否开启自定义会议中邀请人列表
+        customInvite: false // 是否开启自定义会议中邀请人列表
       },
       // 会议房间信息
       meetingInfo: null,
