@@ -49,17 +49,27 @@
       <template v-if="userInfo">
         <el-tabs v-model="activeName" @tab-click="handleChangeAccessMode">
           <el-tab-pane label="预约会议" name="subscribe">
-            <subscribe-vue ref="subscribeRef" :THMKitEvent="$THMKit"></subscribe-vue>
+            <template v-if="activeName == 'subscribe'">
+              <subscribe-vue ref="subscribeRef" :THMKitEvent="$THMKit"></subscribe-vue>
+            </template>
           </el-tab-pane>
           <el-tab-pane label="立即会议" name="promptly">
-            <promptly-vue ref="promptlyRef" :THMKitEvent="$THMKit" @handleJoinMeeting="handleJoinMeeting"></promptly-vue>
+            <template v-if="activeName == 'promptly'">
+              <promptly-vue ref="promptlyRef" :THMKitEvent="$THMKit"
+                @handleJoinMeeting="handleJoinMeeting"></promptly-vue>
+            </template>
           </el-tab-pane>
           <el-tab-pane label="呼叫人员" name="user">
-            <user-list ref="userListRef" :userInfo="userInfo" :THMKitEvent="$THMKit"
-              @handleCall="handleCalling"></user-list>
+            <template v-if="activeName == 'user'">
+              <user-list ref="userListRef" :userInfo="userInfo" :THMKitEvent="$THMKit"
+                @handleCall="handleCalling"></user-list>
+            </template>
           </el-tab-pane>
           <el-tab-pane label="会议列表" name="meeting">
-            <meeting-list ref="meetingListRef" :THMKitEvent="$THMKit" @handleJoin="handleJoinMeeting"></meeting-list>
+            <template v-if="activeName == 'meeting'">
+              <meeting-list ref="meetingListRef" :THMKitEvent="$THMKit" @handleJoin="handleJoinMeeting"></meeting-list>
+            </template>
+
           </el-tab-pane>
         </el-tabs></template>
     </div>
