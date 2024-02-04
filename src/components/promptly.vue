@@ -35,8 +35,7 @@ export default {
         startTime: '',
         hour: '',
         minute: '',
-        inviteeUserIds: [],
-        experience: 0
+        inviteeUserIds: []
       })
       if (res.code != 200) {
         this.$message.error(res.msg)
