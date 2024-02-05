@@ -102,15 +102,12 @@ export default {
   name: 'App',
   data() {
     return {
-      hostUrl:
-        process.env.NODE_ENV === 'development'
-          ? '/api'
-          : 'https://meeting-test.url.mo.cn/api', // nginx 代理 key,
+      hostUrl: '/api', // nginx 代理 key,
       loginParams: {
         userId: null, // 用户ID
-        appKey: 'FhBYUWQEK11tvoQTiFzEEUa31CI26cwY', // 开发者平台 应用appKey
-        accessKey: 'AKcJyFivuJtab4WmcPoXNjap', // 开发者平台 应用accessKey
-        accessSecret: 'TuoXvEnpfAXfqLWLO8DZwnd7O5udJ3', // 开发者平台 应用accessSecret
+        appKey: '', // 开发者平台 应用appKey
+        accessKey: '', // 开发者平台 应用accessKey
+        accessSecret: '', // 开发者平台 应用accessSecret
         timestamp: '', // token 失效时间 (毫秒级)
         platform: 'PC' // 平台信息 PC/ANDROID/GLASS
       },
