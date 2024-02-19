@@ -166,7 +166,7 @@ export default {
           signature: this.applyInfo.signature,
           timestamp: this.applyInfo.timestamp,
           platform: this.applyInfo.platform
-        })
+        }, 'https://developer-test.teamhelper.cn/api', '1.0.0', 'wss://developer-test.teamhelper.cn/im/socket.io')
         // 登录MST-SDK
         const meetingRes = await this.$THMKit.login({
           userId: this.applyInfo.userId
