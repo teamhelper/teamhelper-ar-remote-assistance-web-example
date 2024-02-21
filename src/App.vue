@@ -347,17 +347,18 @@ export default {
     },
     // 加入会议
     handleJoinMeeting: async function (row) {
-      const [resultMeeting, resultJoinMeeting] = await this.$THMKit.joinMeeting(
-        {
-          ...row
-        }
-      )
-      if (resultJoinMeeting.code != 200) {
-        this.$message.error(resultJoinMeeting.msg)
-        return false
+      try {
+        const [resultMeeting] = await this.$THMKit.joinMeeting(
+          {
+            ...row
+          }
+        )
+        this.meetingInfo = resultMeeting.data
+        this.$set(this.assistProps, 'assistVisible', true) // 进入会议协作
+      } catch (error) {
+        console.log(error)
+        this.$message.error(error.msg)
       }
-      this.meetingInfo = resultMeeting.data
-      this.$set(this.assistProps, 'assistVisible', true) // 进入会议协作
     },
     // 自定义会议二次邀请
     handleInvite: async function (row) {
