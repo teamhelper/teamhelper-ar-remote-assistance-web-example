@@ -6227,10 +6227,10 @@ thenify-all@^1.0.0:
   dependencies:
     any-promise "^1.0.0"
 
-thmkit@^0.0.15:
-  version "0.0.15"
-  resolved "https://registry.npmjs.org/thmkit/-/thmkit-0.0.15.tgz"
-  integrity sha512-PqATlZfUR4WAx8K76GfMAf0HZcD9gsTfR/F+shz6Nu11GrgDzFQo8mhqqXleox2uUYdmxXJW67txkO++88pxvQ==
+thmkit@^0.0.16:
+  version "0.0.16"
+  resolved "https://registry.npmjs.org/thmkit/-/thmkit-0.0.16.tgz"
+  integrity sha512-IH3Q0QOUjBmewGxQ99wPWok+UowWSmckPfoIGjG2S7q0y7XBZk3tJjwXw8B5QbzquVj3dBZ6m74u7mr+oaLIYg==
   dependencies:
     ali-oss "^6.20.0"
     axios "^1.6.6"
