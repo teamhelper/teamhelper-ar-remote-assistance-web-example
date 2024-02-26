@@ -435,6 +435,9 @@ export default {
   .left {
     flex-shrink: 0;
     width: 30%;
+    height: 80%;
+    overflow-x: hidden;
+    overflow-y: scroll;
 
     .left-desc {
       margin: 10px 0;
@@ -457,6 +460,9 @@ export default {
   .right {
     width: 40%;
     padding: 10px;
+    height: 80%;
+    overflow-x: hidden;
+    overflow-y: scroll;
 
     .right-desc {
       font-size: 14px;

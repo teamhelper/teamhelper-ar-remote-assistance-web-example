@@ -16,7 +16,7 @@
         <span>分钟</span>
       </el-form-item>
       <el-form-item label="会议参与人">
-        <el-select v-model="form.inviteeUserIds" size="small" filterable :multiple="true" placeholder="参与人">
+        <el-select v-model="form.inviteeUserIds" class="joinSelect" size="small" filterable :multiple="true" placeholder="参与人">
           <el-option v-for="item in userListData" :key="item.userId" :value="item.userId"
             :label="`用户名称： ${item.nickname}   userId: ${item.userId}`">
             <template>
@@ -116,6 +116,9 @@ export default {
     margin: 5px;
     padding: 0 10px;
     border-radius: 5px;
+  }
+  .joinSelect{
+    width: 100%;
   }
 }
 </style>
