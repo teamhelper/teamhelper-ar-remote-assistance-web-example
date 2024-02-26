@@ -218,6 +218,8 @@ export default {
         'THMKit-token-will-expire',
         this.handleTHMKitRefreshToken
       )
+      // THMKit 标注中截屏事件
+      this.$THMKit.addEventListener('THMKit-shot-screen', this.handleTHMKitShotScreen)
     },
     handleWsOpen(data) {
       console.log('APP-WebSocket connection opened:', data)
@@ -290,6 +292,10 @@ export default {
         return false
       }
       this.userInfo = meetingRes.data
+    },
+     // 处理标注业务中截图后逻辑
+     handleTHMKitShotScreen({ userId, url }) {
+      console.log(`userId: ${userId}   url:${url}`)
     },
     // 同意会议
     handleAcceptCloseAnswerContainer: function () {
@@ -405,6 +411,7 @@ export default {
           'THMKit-token-will-expire',
           this.handleTHMKitRefreshToken
         )
+        this.$THMKit.removeEventListener('THMKit-shot-screen', this.handleTHMKitShotScreen)
       }
     },
     // 打开预约会议
