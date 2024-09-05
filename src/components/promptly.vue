@@ -2,10 +2,23 @@
   <div class="promptly">
     <el-form ref="form" :model="form">
       <el-form-item :label="`*会议名称`">
-        <el-input size="small" v-model="form.meetingName" :placeholder="`会议名称`"></el-input>
+        <el-input
+          size="small"
+          v-model="form.meetingName"
+          :placeholder="`会议名称`"
+        ></el-input>
+      </el-form-item>
+      <el-form-item :label="`扩展数据-非必填`">
+        <el-input
+          size="small"
+          v-model="form.extendData"
+          :placeholder="`扩展数据`"
+        ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" size="small" @click="handlePromptlyMeeting"> 立即会议 </el-button>
+        <el-button type="primary" size="small" @click="handlePromptlyMeeting">
+          立即会议
+        </el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -19,6 +32,7 @@ export default {
     return {
       form: {
         meetingName: '',
+        extendData: ''
       },
     }
   },
@@ -35,7 +49,8 @@ export default {
         startTime: '',
         hour: '',
         minute: '',
-        inviteeUserIds: []
+        inviteeUserIds: [],
+        extendData: this.form.extendData
       })
       if (res.code != 200) {
         this.$message.error(res.msg)

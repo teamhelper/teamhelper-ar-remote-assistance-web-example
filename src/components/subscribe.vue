@@ -28,6 +28,9 @@
           </el-option>
         </el-select>
       </el-form-item>
+      <el-form-item :label="`扩展数据-非必填`">
+        <el-input size="small" v-model="form.extendData" :placeholder="`扩展数据`"></el-input>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" size="small" @click="handleSave"> 创建预约会议 </el-button>
       </el-form-item>
